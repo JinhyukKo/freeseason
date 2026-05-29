@@ -25,6 +25,12 @@ const MEMBERS = [
     img: "/한서.jpeg",
     color: "#000a1a",
   },
+  {
+    name: "진혁",
+    role: "Producer / Arranger",
+    img: "/진혁.jpg",
+    color: "#0a1a00",
+  }
 ];
 
 const WORKS = [
