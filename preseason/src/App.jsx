@@ -243,18 +243,7 @@ const OTHER_WORKS = [
 
 
 
-  const getScrollAnimation = (ref, startOffset = 0, endOffset = 400) => {
-    if (!ref.current) return { opacity: 0, transform: "translateY(50px)" };
-    const rect = ref.current.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-    const progress = Math.min(Math.max((windowHeight - rect.top - startOffset) / endOffset, 0), 1);
-    
-    return {
-      opacity: progress,
-      transform: `translateY(${(1 - progress) * 40}px)`,
-      transition: "opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1)"
-    };
-  };
+
   // =========================
   // COMPONENT
   // =========================
