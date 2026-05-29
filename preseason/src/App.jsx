@@ -1,6 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const MEMBERS = [
+  {
+    name: "BARD",
+    role: "Producer / Composer",
+    img: "/BARD.jpeg",
+    color: "#1a0000"
+  },
   {
     name: "성민",
     role: "Producer / Composer",
@@ -24,14 +30,14 @@ const MEMBERS = [
 const WORKS = [
   {
     title: "BREATH",
-    artist: "스트림 우먼 파이터 Vietnam",
+    artist: "스트릿 우먼 파이터 vietnam",
     role: "작/편곡 참여",
     youtube: "https://www.youtube.com/watch?v=f9Sm9iqy0bI",
     ytId: "f9Sm9iqy0bI",
   },
   {
     title: "지구정복",
-    artist: "미녀이 데려오게 [ORIGINAL]",
+    artist: "미녕이 데려오깨 [ORIGINAL]",
     role: "작/편곡 작사",
     youtube: "https://www.youtube.com/watch?v=rsfFoMuWKBQ",
     ytId: "rsfFoMuWKBQ",
@@ -44,16 +50,16 @@ const WORKS = [
     ytId: "o8XM8GlxaRw",
   },
   {
-    title: "breath again / dream pilot / blitz",
+    title: "breath again",
     artist: "Blitzers (블리처스)",
     role: "작/편곡 참여",
     youtube: "https://www.youtube.com/watch?v=HNUYaAkuoiY",
     ytId: "HNUYaAkuoiY",
   },
   {
-    title: "버블러스",
-    artist: "버블러스",
-    role: "마롱님/하로님/세로님 테마곡 작/편곡 [ORIGINAL]",
+    title: "버블러스 테마곡 (마롱/하로/세로)",
+    artist: "버블러스 [ORIGINAL]",
+    role: "테마곡 작/편곡",
     youtube: "https://www.youtube.com/watch?v=NHSv9dZOdFI",
     ytId: "NHSv9dZOdFI",
   },
@@ -71,26 +77,42 @@ const OTHER_WORKS = [
   { title: "Bring it no more", type: "싱글 앨범", role: "작사/작곡/발매" },
   { title: "약속", artist: "마지메로", role: "작사/작곡" },
   { title: "기억", artist: "마지메로", role: "작사/작곡" },
-  { title: "Where u at?", artist: "팸뵈Ryan", role: "작곡" },
-  { title: "We don't care (feat.TRADE L)", artist: "Set The Tone", role: "작/편곡 참여" },
-  { title: "cha cha", artist: "라임라잇", role: "편곡 참여" },
-  { title: "데이지", artist: "도진이", role: "작/편곡" },
-  { title: "shine", artist: "Terrence", role: "작/편곡 참여" },
-  { title: "녹색이념 / 강남", artist: "김태균 (테이크원)", role: "편곡 참여" },
-  { title: "추억눈", artist: "김영근", role: "작/편곡 참여" },
+  { title: "enkai", artist: "시즈라에", role: "작사/작곡" },
+  { title: "Where u at?", artist: "屁孩Ryan", role: "작곡" },
+  { title: "dream pilot", artist: "Blitzers (블리처스)", role: "작/편곡 참여" },
+  { title: "blitz (next level remix)", artist: "Blitzers (블리처스)", role: "작/편곡 참여" },
+  { title: "ocean blue", artist: "Blitzers (블리처스)", role: "편곡 참여" },
+  { title: "실수 좀 할게", artist: "Blitzers (블리처스)", role: "작/편곡 참여" },
+  { title: "K pop", artist: "Blitzers (블리처스)", role: "작/편곡 참여" },
+  { title: "Rain drop", artist: "Blitzers (블리처스)", role: "작/편곡 참여" },
+  { title: "Hapoom", artist: "Blitzers (블리처스)", role: "작/편곡 참여" },
+  { title: "BuBBle BuBBle!", artist: "버블러스 [ORIGINAL]", role: "작/편곡" },
+  { title: "Hello, bubble!", artist: "버블러스 [ORIGINAL]", role: "작/편곡" },
+  { title: "버츄버 30문답", artist: "버블러스", role: "편곡" },
   { title: "아카데미 BGM", artist: "모바일 게임 스타시드", role: "작/편곡/믹싱" },
   { title: "요즘 너 (new ver.)", artist: "브레이브걸스", role: "편곡 참여" },
-  { title: "날 따라해봐요 / 마이럽럽 / 팡당팡당", artist: "캐리와 친구들", role: "편곡 참여" },
-  { title: "BuBBle BuBBle! / Hello, bubble!", type: "버츄버 30문답", role: "작/편곡 [ORIGINAL]" },
-  { title: "fire", artist: "채널A x sky 공동제작 예능 강철부대 OST", role: "작사/작곡/편곡 참여" },
-  { title: "LIMELIGHT 앨범 수록곡 cha cha", artist: "라임라잇", role: "편곡 참여" },
+  { title: "날 따라해봐요", artist: "캐리와 친구들", role: "편곡 참여" },
+  { title: "마이럽럽", artist: "캐리와 친구들", role: "편곡 참여" },
+  { title: "퐁당퐁당", artist: "캐리와 친구들", role: "편곡 참여" },
+  { title: "파도타기", artist: "캐리와 친구들", role: "편곡 참여" },
+  { title: "새마음운동", artist: "캐리와 친구들", role: "편곡 참여" },
+  { title: "치킨", artist: "캐리와 친구들", role: "편곡 참여" },
+  { title: "캐리월드", artist: "캐리와 친구들", role: "편곡 참여" },
+  { title: "슈퍼스타", artist: "캐리와 친구들", role: "편곡 참여" },
+  { title: "녹색이념 (상업예술)", artist: "김태균 (테이크원)", role: "편곡 참여" },
+  { title: "강남 (상업예술)", artist: "김태균 (테이크원)", role: "편곡 참여" },
+  { title: "추억눈", artist: "김영근", role: "작/편곡 참여" },
+  { title: "shine", artist: "Terrence", role: "작/편곡 참여" },
+  { title: "We don’t care (feat.TRADE L)", artist: "Set The Tone", role: "작/편곡 참여" },
+  { title: "cha cha (LIMELIGHT 앨범 수록곡)", artist: "라임라잇", role: "편곡 참여" },
+  { title: "데이지", artist: "도진이", role: "작/편곡" },
+  { title: "fire", artist: "채널A x sky 강철부대 OST", role: "작사/작곡/편곡 참여" },
 ];
 
 const NAV_ITEMS = ["MAIN", "ARTISTS", "WORKS", "SNS"];
 
 export default function PreseasonSite() {
   const [activeTab, setActiveTab] = useState("MAIN");
-  const [otherOpen, setOtherOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [hoveredMember, setHoveredMember] = useState(null);
 
@@ -254,25 +276,6 @@ export default function PreseasonSite() {
         @keyframes fadeUp {
           to { opacity: 1; transform: translateY(0); }
         }
-
-        .toggle-btn {
-          width: 100%;
-          padding: 16px 20px;
-          background: #111;
-          border: 1px solid #222;
-          color: #f0f0f0;
-          font-family: 'Bebas Neue', sans-serif;
-          font-size: 1.1rem;
-          letter-spacing: 0.15em;
-          cursor: pointer;
-          text-align: left;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          transition: background 0.2s;
-          margin-top: 40px;
-        }
-        .toggle-btn:hover { background: #1a1a1a; }
 
         .sns-card {
           border: 1px solid #1a1a1a;
@@ -486,7 +489,7 @@ export default function PreseasonSite() {
               display: "grid",
               gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
               gap: "16px",
-              marginBottom: "16px",
+              marginBottom: "48px",
             }}>
               {WORKS.map(w => (
                 <div key={w.title} className="work-card">
@@ -505,46 +508,49 @@ export default function PreseasonSite() {
               ))}
             </div>
 
-            {/* Other works collapsible */}
-            <button
-              className="toggle-btn"
-              onClick={() => setOtherOpen(!otherOpen)}
-            >
-              <span>그 외 작업물 ({OTHER_WORKS.length})</span>
-              <span style={{ color: "#ff3c00" }}>{otherOpen ? "▲" : "▼"}</span>
-            </button>
+            {/* 기타 작업물 타이틀 표기 */}
+            <div style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: "1.4rem",
+              letterSpacing: "0.15em",
+              color: "#f0f0f0",
+              marginBottom: "16px",
+              paddingBottom: "8px",
+              borderBottom: "1px solid #222"
+            }}>
+              기타 작업물 ({OTHER_WORKS.length})
+            </div>
 
-            {otherOpen && (
-              <div style={{ border: "1px solid #1a1a1a", borderTop: "none" }}>
-                {OTHER_WORKS.map((w, i) => (
-                  <div key={i} className="other-work-row">
-                    <div>
-                      <div style={{
-                        fontFamily: "'Bebas Neue', sans-serif",
-                        fontSize: "1.1rem",
-                        letterSpacing: "0.05em",
-                      }}>{w.title}</div>
-                      {(w.artist || w.type) && (
-                        <div style={{
-                          fontFamily: "'Noto Sans KR', sans-serif",
-                          fontSize: "0.7rem",
-                          color: "#666",
-                          marginTop: "2px",
-                        }}>{w.artist || w.type}</div>
-                      )}
-                    </div>
+            {/* 별도의 클릭 없이 무조건 리스트 노출 */}
+            <div style={{ border: "1px solid #1a1a1a" }}>
+              {OTHER_WORKS.map((w, i) => (
+                <div key={i} className="other-work-row">
+                  <div>
                     <div style={{
-                      fontFamily: "'Noto Sans KR', sans-serif",
-                      fontSize: "0.7rem",
-                      color: "#ff3c00",
+                      fontFamily: "'Bebas Neue', sans-serif",
+                      fontSize: "1.1rem",
                       letterSpacing: "0.05em",
-                      textAlign: "right",
-                      maxWidth: "180px",
-                    }}>{w.role}</div>
+                    }}>{w.title}</div>
+                    {(w.artist || w.type) && (
+                      <div style={{
+                        fontFamily: "'Noto Sans KR', sans-serif",
+                        fontSize: "0.7rem",
+                        color: "#666",
+                        marginTop: "2px",
+                      }}>{w.artist || w.type}</div>
+                    )}
                   </div>
-                ))}
-              </div>
-            )}
+                  <div style={{
+                    fontFamily: "'Noto Sans KR', sans-serif",
+                    fontSize: "0.7rem",
+                    color: "#ff3c00",
+                    letterSpacing: "0.05em",
+                    textAlign: "right",
+                    maxWidth: "180px",
+                  }}>{w.role}</div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
