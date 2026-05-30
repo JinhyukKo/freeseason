@@ -27,63 +27,77 @@ const NAV_ITEMS = ["MAIN", "ARTISTS", "WORKS", "SNS"];
 
 export default function FloatingPreseasonSite() {
   const [activeTab, setActiveTab] = useState("MAIN");
-  const [activeVideo, setActiveVideo] = useState(null); // 클릭한 영상 정보를 담을 상태
+  const [activeVideo, setActiveVideo] = useState(null);
+
   const canvasRef = useRef(null);
 
   const mainRef = useRef(null);
   const artistsRef = useRef(null);
   const worksRef = useRef(null);
   const snsRef = useRef(null);
-  const extraRef = useRef(null); // 추가!
+  const extraRef = useRef(null);
 
   const sectionRefs = {
     MAIN: mainRef,
     ARTISTS: artistsRef,
     WORKS: worksRef,
-      EXTRA: extraRef, // 추가!
+    EXTRA: extraRef,
     SNS: snsRef,
   };
 
   const WORKS = [
-  { title: "BREATH", artist: "스트릿 우먼 파이터 vietnam", role: "작/편곡 참여", ytId: "f9Sm9iqy0bI" },
-  { title: "지구정복", artist: "미녕이 데려오깨 [ORIGINAL]", role: "작/편곡 작사", ytId: "rsfFoMuWKBQ" },
-  { title: "Classic", artist: "Dolla", role: "작/편곡 참여", ytId: "o8XM8GlxaRw" },
-  { title: "breath again", artist: "Blitzers (블리처스)", role: "작/편곡 참여", ytId: "HNUYaAkuoiY" },
-  { title: "버블러스 테마곡 (마롱/하로/세로)", artist: "버블러스 [ORIGINAL]", role: "테마곡 작/편곡", ytId: "NHSv9dZOdFI" },
-  { title: "my side / thursday party / HEUNG", artist: "BIGMARVEL", role: "작곡 편곡 가사", ytId: "otvJLZ3Vlao" }
-];
+    {
+      title: "BREATH",
+      artist: "스트릿 우먼 파이터 vietnam",
+      role: "작/편곡 참여",
+      ytId: "f9Sm9iqy0bI",
+    },
+    {
+      title: "지구정복",
+      artist: "미녕이 데려오깨 [ORIGINAL]",
+      role: "작/편곡 작사",
+      ytId: "rsfFoMuWKBQ",
+    },
+    {
+      title: "Classic",
+      artist: "Dolla",
+      role: "작/편곡 참여",
+      ytId: "o8XM8GlxaRw",
+    },
+    {
+      title: "breath again",
+      artist: "Blitzers (블리처스)",
+      role: "작/편곡 참여",
+      ytId: "HNUYaAkuoiY",
+    },
+    {
+      title: "버블러스 테마곡",
+      artist: "버블러스 [ORIGINAL]",
+      role: "테마곡 작/편곡",
+      ytId: "NHSv9dZOdFI",
+    },
+    {
+      title: "my side / HEUNG",
+      artist: "BIGMARVEL",
+      role: "작곡 편곡 가사",
+      ytId: "otvJLZ3Vlao",
+    },
+  ];
 
-const OTHER_WORKS = [
-  { title: "Alarm", desc: "싱글 앨범", role: "작사/작곡/발매" },
-  { title: "Bring it no more", desc: "싱글 앨범", role: "작사/작곡/발매" },
-  { title: "약속", desc: "마지메로", role: "작사/작곡" },
-  { title: "기억", desc: "마지메로", role: "작사/작곡" },
-  { title: "enkai", desc: "시즈라에", role: "작사/작곡" },
-  { title: "Where u at?", desc: "屁孩Ryan", role: "작곡" },
-  { title: "dream pilot", desc: "Blitzers", role: "작/편곡 참여" },
-  { title: "blitz (next level remix)", desc: "Blitzers", role: "작/편곡 참여" },
-  { title: "ocean blue", desc: "Blitzers", role: "편곡 참여" },
-  { title: "실수 좀 할게", desc: "Blitzers", role: "작/편곡 참여" },
-  { title: "K pop", desc: "Blitzers", role: "작/편곡 참여" },
-  { title: "Rain drop", desc: "Blitzers", role: "작/편곡 참여" },
-  { title: "Hapoom", desc: "Blitzers", role: "작/편곡 참여" },
-  { title: "BuBBle BuBBle!", desc: "버블러스", role: "작/편곡" },
-  { title: "Hello, bubble!", desc: "버블러스", role: "작/편곡" },
-  { title: "아카데미 BGM", desc: "스타시드", role: "작/편곡/믹싱" },
-  { title: "요즘 너", desc: "브레이브걸스", role: "편곡 참여" },
-  { title: "캐리 시리즈", desc: "캐리와 친구들", role: "편곡 참여" },
-  { title: "녹색이념/강남", desc: "김태균", role: "편곡 참여" },
-  { title: "추억눈", desc: "김영근", role: "작/편곡 참여" },
-  { title: "shine", desc: "Terrence", role: "작/편곡 참여" },
-  { title: "We don’t care", desc: "Set The Tone", role: "작/편곡 참여" },
-  { title: "cha cha", desc: "라임라잇", role: "편곡 참여" },
-  { title: "데이지", desc: "도진이", role: "작/편곡" },
-  { title: "fire", desc: "강철부대 OST", role: "작사/작곡/편곡 참여" }
-];
+  const OTHER_WORKS = [
+    { title: "Alarm", desc: "싱글 앨범", role: "작사/작곡/발매" },
+    { title: "Bring it no more", desc: "싱글 앨범", role: "작사/작곡/발매" },
+    { title: "약속", desc: "마지메로", role: "작사/작곡" },
+    { title: "기억", desc: "마지메로", role: "작사/작곡" },
+    { title: "enkai", desc: "시즈라에", role: "작사/작곡" },
+    { title: "Where u at?", desc: "屁孩Ryan", role: "작곡" },
+    { title: "dream pilot", desc: "Blitzers", role: "작/편곡 참여" },
+    { title: "ocean blue", desc: "Blitzers", role: "편곡 참여" },
+    { title: "요즘 너", desc: "브레이브걸스", role: "편곡 참여" },
+    { title: "캐리 시리즈", desc: "캐리와 친구들", role: "편곡 참여" },
+    { title: "fire", desc: "강철부대 OST", role: "작사/작곡/편곡 참여" },
+  ];
 
-  // =========================
-  // ACTIVE SECTION OBSERVER
-  // =========================
   useEffect(() => {
     const sections = [
       { id: "MAIN", ref: mainRef },
@@ -118,9 +132,6 @@ const OTHER_WORKS = [
     return () => observer.disconnect();
   }, []);
 
-  // =========================
-  // CANVAS
-  // =========================
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -231,9 +242,6 @@ const OTHER_WORKS = [
     };
   }, []);
 
-  // =========================
-  // SCROLL TO SECTION
-  // =========================
   const scrollToSection = (tab) => {
     sectionRefs[tab]?.current?.scrollIntoView({
       behavior: "smooth",
@@ -241,412 +249,452 @@ const OTHER_WORKS = [
     });
   };
 
-
-
-
-  // =========================
-  // COMPONENT
-  // =========================
-  
   return (
     <div className="viewport">
       <style>{`
-      /* Pretendard 폰트 추가 */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  /* 모든 요소에 Pretendard 적용 */
-  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Pretendard',sans-serif;
 }
 
-/* 제목 등 강조가 필요한 곳은 굵기 조절 */
-.hero-title, .section-title {
-  font-weight: 600;
-  letter-spacing: -0.02em;
+html,
+body,
+#root{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#020203;
 }
 
-        html,
-        body,
-        #root{
-          width:100%;
-          height:100%;
-          overflow:hidden;
-          background:#020203;
-        }
-
-        body{
-          font-family:'Bebas Neue', sans-serif;
-          color:white;
-        }
-
-        .viewport{
-          width:100%;
-          height:100vh;
-          overflow:hidden;
-          position:relative;
-          background:#020203;
-        }
-
-        canvas{
-          position:fixed;
-          inset:0;
-          width:100%;
-          height:100%;
-          z-index:1;
-          pointer-events:none;
-        }
-
-        /* ========================= */
-        /* NAV */
-        /* ========================= */
-
-        nav{
-          position:fixed;
-          top:0;
-          left:0;
-          right:0;
-
-          height:90px;
-
-          z-index:1000;
-
-          display:flex;
-          align-items:center;
-          justify-content:space-between;
-
-          padding:0 40px;
-
-          backdrop-filter:blur(20px);
-
-          background:rgba(0,0,0,0.3);
-
-          border-bottom:1px solid rgba(255,255,255,0.05);
-        }
-
-        .logo{
-          font-size:1.6rem;
-          letter-spacing:0.25em;
-          cursor:pointer;
-        }
-
-        .nav-right{
-          display:flex;
-          gap:40px;
-        }
-
-        .nav-item{
-          color:#555;
-          cursor:pointer;
-          transition:0.4s;
-          position:relative;
-          letter-spacing:0.15em;
-        }
-
-        .nav-item::after{
-          content:"";
-          position:absolute;
-          left:0;
-          bottom:-8px;
-          width:0;
-          height:2px;
-          background:#ff2200;
-          transition:0.4s;
-        }
-
-        .nav-item.active{
-          color:#ff2200;
-        }
-
-        .nav-item.active::after{
-          width:100%;
-        }
-
-        /* ========================= */
-        /* MAIN SCROLL */
-        /* ========================= */
-
-        main{
-          height:100vh;
-          overflow-y:scroll;
-
-          scroll-snap-type:y mandatory;
-
-          position:relative;
-          z-index:10;
-        }
-
-        main::-webkit-scrollbar{
-          display:none;
-        }
-
-        /* ========================= */
-        /* PANEL */
-        /* ========================= */
-
-        .panel{
-          height:100vh;
-
-          scroll-snap-align:start;
-          scroll-snap-stop:always;
-
-          position:relative;
-
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-
-          padding:120px 80px;
-
-          overflow:hidden;
-        }
-
-        .panel::before{
-          content:"";
-
-          position:absolute;
-          inset:0;
-
-          background:
-            radial-gradient(
-              circle at center,
-              transparent 0%,
-              rgba(0,0,0,0.45) 100%
-            );
-
-          pointer-events:none;
-        }
-
-        /* ========================= */
-        /* HERO */
-        /* ========================= */
-
-        .hero-sub{
-          color:#ff2200;
-          letter-spacing:0.4em;
-          font-size:0.9rem;
-          margin-bottom:20px;
-        }
-
-        .hero-title{
-          font-family:'Archivo Black', sans-serif;
-
-          font-size:clamp(4rem,12vw,10rem);
-
-          line-height:0.85;
-
-          letter-spacing:-0.05em;
-
-          margin-bottom:30px;
-        }
-
-        .hero-title span{
-          color:#ff2200;
-        }
-
-        .hero-desc{
-          max-width:540px;
-
-          font-family:'Noto Sans KR', sans-serif;
-
-          color:#999;
-
-          line-height:1.8;
-
-          font-size:1rem;
-        }
-
-        /* ========================= */
-        /* SECTION TITLE */
-        /* ========================= */
-
-        .section-sub{
-          color:#ff2200;
-          letter-spacing:0.35em;
-          margin-bottom:14px;
-          font-size:0.85rem;
-        }
-
-        .section-title{
-          font-size:clamp(3rem,7vw,5rem);
-
-          font-family:'Archivo Black', sans-serif;
-
-          margin-bottom:50px;
-        }
-
-        /* ========================= */
-        /* CARDS */
-        /* ========================= */
-
-        .grid{
-          display:grid;
-          grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-          gap:24px;
-        }
-
-        .card{
-          background:rgba(15,15,18,0.55);
-
-          backdrop-filter:blur(16px);
-
-          border:1px solid rgba(255,255,255,0.04);
-
-          border-radius:24px;
-
-          overflow:hidden;
-
-          transition:0.7s cubic-bezier(.16,1,.3,1);
-        }
-
-        .card:hover{
-          transform:translateY(-10px) scale(1.02);
-
-          border-color:rgba(255,34,0,0.35);
-
-          box-shadow:
-            0 10px 40px rgba(255,34,0,0.12);
-        }
-
-        .member-img{
-          width:100%;
-          height:400px;
-
-          object-fit:cover;
-
-          filter:grayscale(100%);
-
-          transition:1s;
-        }
-
-        .card:hover .member-img{
-          filter:grayscale(0%);
-          transform:scale(1.04);
-        }
-
-        .card-content{
-          padding:24px;
-        }
-
-        .member-name{
-          font-size:2rem;
-        }
-
-        .member-role{
-          color:#ff2200;
-          margin-top:4px;
-
-          font-family:'Noto Sans KR', sans-serif;
-          font-size:0.8rem;
-        }
-
-        /* ========================= */
-        /* WORK BOX */
-        /* ========================= */
-
-        .work-box{
-          width:100%;
-          max-width:700px;
-
-          padding:50px;
-
-          background:rgba(15,15,18,0.5);
-
-          border:1px solid rgba(255,255,255,0.04);
-
-          border-radius:30px;
-
-          backdrop-filter:blur(20px);
-        }
-
-        .work-line{
-          display:flex;
-          justify-content:space-between;
-
-          padding:18px 0;
-
-          border-bottom:1px solid rgba(255,255,255,0.04);
-        }
-
-        .work-line:last-child{
-          border:none;
-        }
-
-        .work-title{
-          font-size:1.2rem;
-        }
-
-        .work-role{
-          color:#ff2200;
-
-          font-family:'Noto Sans KR', sans-serif;
-
-          font-size:0.8rem;
-        }
-
-        /* ========================= */
-        /* SNS */
-        /* ========================= */
-
-        .sns-wrap{
-          display:flex;
-          gap:24px;
-        }
-
-        .sns-card{
-          width:240px;
-          height:240px;
-
-          border-radius:30px;
-
-          background:rgba(15,15,18,0.5);
-
-          border:1px solid rgba(255,255,255,0.04);
-
-          backdrop-filter:blur(20px);
-
-          display:flex;
-          flex-direction:column;
-          align-items:center;
-          justify-content:center;
-
-          transition:0.7s cubic-bezier(.16,1,.3,1);
-
-          cursor:pointer;
-        }
-
-        .sns-card:hover{
-          transform:translateY(-10px);
-
-          border-color:rgba(255,34,0,0.35);
-        }
-
-        .sns-icon{
-          font-size:3rem;
-          margin-bottom:20px;
-        }
-
-        .sns-title{
-          font-size:1.5rem;
-        }
-
-        .sns-desc{
-          margin-top:8px;
-
-          color:#666;
-
-          font-family:'Noto Sans KR', sans-serif;
-          font-size:0.8rem;
-        }
-
+body{
+  color:white;
+}
+
+.viewport{
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+  position:relative;
+  background:#020203;
+}
+
+canvas{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+  pointer-events:none;
+}
+
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:88px;
+  z-index:1000;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 40px;
+
+  backdrop-filter:blur(20px);
+  background:rgba(0,0,0,0.35);
+
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.logo{
+  font-size:1.4rem;
+  letter-spacing:0.22em;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.nav-right{
+  display:flex;
+  gap:36px;
+}
+
+.nav-item{
+  color:#666;
+  cursor:pointer;
+  transition:0.4s;
+  position:relative;
+  letter-spacing:0.15em;
+  font-size:0.9rem;
+}
+
+.nav-item::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-8px;
+  width:0;
+  height:2px;
+  background:#ff2200;
+  transition:0.4s;
+}
+
+.nav-item.active{
+  color:#ff2200;
+}
+
+.nav-item.active::after{
+  width:100%;
+}
+
+main{
+  height:100vh;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
+  position:relative;
+  z-index:10;
+}
+
+main::-webkit-scrollbar{
+  display:none;
+}
+
+.panel{
+  min-height:100vh;
+
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+
+  position:relative;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  padding:120px 80px 80px;
+}
+
+.panel::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(
+      circle at center,
+      transparent 0%,
+      rgba(0,0,0,0.45) 100%
+    );
+
+  pointer-events:none;
+}
+
+.hero-sub{
+  color:#ff2200;
+  letter-spacing:0.35em;
+  font-size:0.85rem;
+  margin-bottom:20px;
+}
+
+.hero-title{
+  font-size:clamp(4rem,12vw,10rem);
+  line-height:0.85;
+  letter-spacing:-0.06em;
+  margin-bottom:28px;
+  font-weight:800;
+}
+
+.hero-title span{
+  color:#ff2200;
+}
+
+.hero-desc{
+  max-width:560px;
+  color:#999;
+  line-height:1.8;
+  font-size:1rem;
+}
+
+.section-sub{
+  color:#ff2200;
+  letter-spacing:0.3em;
+  margin-bottom:12px;
+  font-size:0.8rem;
+}
+
+.section-title{
+  font-size:clamp(2.8rem,7vw,5rem);
+  margin-bottom:40px;
+  font-weight:800;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;
+  width:100%;
+}
+
+.card{
+  background:rgba(15,15,18,0.55);
+
+  backdrop-filter:blur(16px);
+
+  border:1px solid rgba(255,255,255,0.05);
+
+  border-radius:24px;
+
+  overflow:hidden;
+
+  transition:0.6s cubic-bezier(.16,1,.3,1);
+}
+
+.card:hover{
+  transform:translateY(-8px);
+
+  border-color:rgba(255,34,0,0.3);
+
+  box-shadow:
+    0 10px 40px rgba(255,34,0,0.12);
+}
+
+.member-img{
+  width:100%;
+  height:380px;
+  object-fit:cover;
+
+  filter:grayscale(100%);
+  transition:1s;
+}
+
+.card:hover .member-img{
+  filter:grayscale(0%);
+  transform:scale(1.03);
+}
+
+.card-content{
+  padding:22px;
+}
+
+.member-name{
+  font-size:1.6rem;
+  font-weight:700;
+}
+
+.member-role{
+  color:#ff2200;
+  margin-top:6px;
+  font-size:0.8rem;
+}
+
+.work-title{
+  font-size:1.1rem;
+  font-weight:700;
+}
+
+.work-role{
+  color:#ff2200;
+  font-size:0.75rem;
+}
+
+.sns-wrap{
+  display:flex;
+  gap:24px;
+  flex-wrap:wrap;
+}
+
+.sns-card{
+  width:240px;
+  height:240px;
+
+  border-radius:28px;
+
+  background:rgba(15,15,18,0.5);
+
+  border:1px solid rgba(255,255,255,0.05);
+
+  backdrop-filter:blur(20px);
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  transition:0.6s;
+  cursor:pointer;
+}
+
+.sns-card:hover{
+  transform:translateY(-10px);
+
+  border-color:rgba(255,34,0,0.3);
+}
+
+.sns-icon{
+  font-size:3rem;
+  margin-bottom:18px;
+}
+
+.sns-title{
+  font-size:1.4rem;
+  font-weight:700;
+}
+
+.sns-desc{
+  margin-top:8px;
+  color:#666;
+  font-size:0.8rem;
+}
+
+/* ========================= */
+/* TABLET */
+/* ========================= */
+
+@media (max-width:1024px){
+
+  nav{
+    height:72px;
+    padding:0 20px;
+  }
+
+  .logo{
+    font-size:1rem;
+  }
+
+  .nav-right{
+    gap:18px;
+  }
+
+  .nav-item{
+    font-size:0.7rem;
+  }
+
+  .panel{
+    padding:110px 24px 60px;
+  }
+
+  .hero-title{
+    font-size:clamp(3rem,20vw,6rem);
+  }
+
+  .hero-desc{
+    font-size:0.92rem;
+    max-width:100%;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .member-img{
+    height:320px;
+  }
+
+  .sns-wrap{
+    flex-direction:column;
+  }
+
+  .sns-card{
+    width:100%;
+    height:160px;
+  }
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media (max-width:640px){
+
+  nav{
+    height:64px;
+    padding:0 14px;
+  }
+
+  .logo{
+    font-size:0.8rem;
+    letter-spacing:0.15em;
+  }
+
+  .nav-right{
+    gap:10px;
+  }
+
+  .nav-item{
+    font-size:0.58rem;
+    letter-spacing:0.05em;
+  }
+
+  .panel{
+    padding:90px 16px 40px;
+  }
+
+  .hero-sub{
+    font-size:0.68rem;
+  }
+
+  .hero-title{
+    font-size:clamp(2.8rem,22vw,5rem);
+  }
+
+  .hero-desc{
+    font-size:0.82rem;
+    line-height:1.7;
+  }
+
+  .section-title{
+    font-size:2rem;
+    margin-bottom:24px;
+  }
+
+  .member-img{
+    height:240px;
+  }
+
+  .member-name{
+    font-size:1.2rem;
+  }
+
+  .card-content{
+    padding:16px;
+  }
+
+  .sns-card{
+    height:140px;
+  }
+
+  .sns-icon{
+    font-size:2rem;
+    margin-bottom:12px;
+  }
+
+  .sns-title{
+    font-size:1rem;
+  }
+}
+
+.video-modal iframe{
+  width:80%;
+  height:70%;
+  border:none;
+  border-radius:18px;
+}
+
+@media (max-width:768px){WWQ
+
+  .video-modal iframe{
+    width:95%;
+    height:32%;
+  }
+}
       `}</style>
 
-      {/* CANVAS */}
       <canvas ref={canvasRef} />
 
-      {/* NAV */}
       <nav>
         <div
           className="logo"
@@ -670,9 +718,7 @@ const OTHER_WORKS = [
         </div>
       </nav>
 
-      {/* CONTENT */}
       <main>
-        {/* HERO */}
         <section ref={mainRef} className="panel">
           <div className="hero-sub">
             HYPER AUDIO DIMENSION
@@ -695,7 +741,6 @@ const OTHER_WORKS = [
           </div>
         </section>
 
-        {/* ARTISTS */}
         <section ref={artistsRef} className="panel">
           <div className="section-sub">
             CORE SYSTEM OPERATORS
@@ -728,69 +773,126 @@ const OTHER_WORKS = [
           </div>
         </section>
 
-        {/* WORKS */}
-{/* ── 3. WORKS (VIDEO) SECTION ── */}
-<section ref={worksRef} className="panel">
-  <div className="section-sub">SELECTED DISCOGRAPHY</div>
-  <div className="section-title">WORKS</div>
-  
-  <div className="grid">
-{WORKS.map(w => (
-  <div 
-    key={w.title} 
-    className="card" 
-    onClick={() => setActiveVideo(w.ytId)} 
-    style={{ cursor: "pointer" }}
-  >
-    {/* 유튜브 썸네일 불러오기 */}
-    <img 
-      src={`https://img.youtube.com/vi/${w.ytId}/hqdefault.jpg`} 
-      alt={w.title}
-      style={{ width: "100%", height: "200px", objectFit: "cover" }}
-    />
-    <div className="card-content">
-      <div className="member-name">{w.title}</div>
-      <div className="member-role">{w.role}</div>
-    </div>
-  </div>
-))}
-  </div>
-</section>
+        <section ref={worksRef} className="panel">
+          <div className="section-sub">
+            SELECTED DISCOGRAPHY
+          </div>
 
-{/* ── 4. EXTRA WORKS SECTION ── */}
-<section ref={extraRef} className="panel" style={{ height: "auto", minHeight: "100vh" }}>
-  <div className="section-sub">ADDITIONAL DISCOGRAPHY</div>
-  <div className="section-title">OTHER WORKS</div>
-  
-  {/* 3개의 컬럼으로 자동 배치되는 그리드 레이아웃 */}
-  <div style={{ 
-    display: "grid", 
-    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", 
-    gap: "20px", 
-    width: "100%" 
-  }}>
-    {OTHER_WORKS.map((w, i) => (
-      <div key={i} className="work-line" style={{ 
-        background: "rgba(255,255,255,0.08)", 
-        padding: "15px 20px", 
-        borderRadius: "12px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
-      }}>
-        <div style={{ overflow: "hidden" }}>
-          <div className="work-title" style={{ fontSize: "1.2rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{w.title}</div>
-          <div style={{ fontSize: "1rem", color: "#888" }}>{w.desc}</div>
-        </div>
-        <div className="work-role" style={{ fontSize: "0.8rem", marginLeft: "10px", flexShrink: 0 }}>{w.role}</div>
-      </div>
-    ))}
-  </div>
-</section>
+          <div className="section-title">
+            WORKS
+          </div>
 
+          <div className="grid">
+            {WORKS.map((w) => (
+              <div
+                key={w.title}
+                className="card"
+                onClick={() => setActiveVideo(w.ytId)}
+                style={{ cursor: "pointer" }}
+              >
+                <img
+                  src={`https://img.youtube.com/vi/${w.ytId}/hqdefault.jpg`}
+                  alt={w.title}
+                  style={{
+                    width: "100%",
+                    height: "220px",
+                    objectFit: "cover",
+                  }}
+                />
 
+                <div className="card-content">
+                  <div className="member-name">
+                    {w.title}
+                  </div>
 
-        {/* SNS */}
+                  <div
+                    style={{
+                      color: "#888",
+                      marginTop: "6px",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    {w.artist}
+                  </div>
+
+                  <div className="member-role">
+                    {w.role}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section
+          ref={extraRef}
+          className="panel"
+          style={{
+            height: "auto",
+          }}
+        >
+          <div className="section-sub">
+            ADDITIONAL DISCOGRAPHY
+          </div>
+
+          <div className="section-title">
+            OTHER WORKS
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns:
+                "repeat(auto-fit,minmax(260px,1fr))",
+              gap: "16px",
+              width: "100%",
+            }}
+          >
+            {OTHER_WORKS.map((w, i) => (
+              <div
+                key={i}
+                style={{
+                  background:
+                    "rgba(255,255,255,0.06)",
+
+                  padding: "18px",
+
+                  borderRadius: "18px",
+
+                  border:
+                    "1px solid rgba(255,255,255,0.05)",
+
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: 700,
+                  }}
+                >
+                  {w.title}
+                </div>
+
+                <div
+                  style={{
+                    color: "#777",
+                    fontSize: "0.9rem",
+                  }}
+                >
+                  {w.desc}
+                </div>
+
+                <div className="work-role">
+                  {w.role}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section ref={snsRef} className="panel">
           <div className="section-sub">
             UPLINK PROTOCOL
@@ -831,35 +933,33 @@ const OTHER_WORKS = [
           </div>
         </section>
       </main>
-{activeVideo && (
-  <div 
-    style={{
-      position: "fixed", 
-      top: 0, 
-      left: 0, 
-      width: "100%", 
-      height: "100%",
-      // 여기서 0.85는 85%의 불투명도를 의미합니다. 
-      // 0.5로 낮추면 더 투명하게 보입니다.
-      background: "rgba(0,0,0,0.85)", 
-      backdropFilter: "blur(10px)", // 추가: 배경을 흐릿하게 만들어 더 고급스럽게 보입니다.
-      zIndex: 9999,
-      display: "flex", 
-      alignItems: "center", 
-      justifyContent: "center",
-      cursor: "pointer"
-    }}
-    onClick={() => setActiveVideo(null)}
-  >
-    <iframe
-      title="video"
-      src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1`}
-      style={{ width: "80%", height: "70%", border: "none" }}
-      allow="autoplay; encrypted-media"
-      allowFullScreen
-    />
-  </div>
-)}
+
+      {activeVideo && (
+        <div
+          className="video-modal"
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.88)",
+            backdropFilter: "blur(10px)",
+            zIndex: 9999,
+
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+
+            padding: "20px",
+          }}
+          onClick={() => setActiveVideo(null)}
+        >
+          <iframe
+            title="video"
+            src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1`}
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+          />
+        </div>
+      )}
     </div>
   );
 }
