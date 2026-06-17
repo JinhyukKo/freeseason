@@ -4,20 +4,20 @@ const MEMBERS = [
   {
     name: "BARD",
     role: "Producer / Composer",
-    img: "/진혁.jpeg",
+    img: "/bard.png",
   },
   {
-    name: "성민",
+    name: "BLOW OF",
     role: "Producer / Composer",
     img: "/성민.jpeg",
   },
   {
-    name: "성빈",
+    name: "LI VI",
     role: "Composer / Lyricist",
     img: "/성빈.jpeg",
   },
   {
-    name: "한서",
+    name: "MELA",
     role: "Producer / Arranger",
     img: "/한서.jpeg",
   },
