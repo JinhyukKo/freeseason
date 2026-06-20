@@ -121,7 +121,7 @@ export default function FloatingPreseasonSite() {
         });
       },
       {
-        threshold: 0.6,
+        threshold: 0.01,
       }
     );
 
